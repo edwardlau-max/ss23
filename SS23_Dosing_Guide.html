@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SS23 Pool Dosing Guide (Rev 2.0)</title>
+<style>
+  :root{
+    --ink:#1a2230; --muted:#5b6675; --line:#d3d9e2; --bg:#f5f7fa;
+    --morn:#e8f1fd; --morn-hd:#1d6fd0;
+    --after:#eaf7f0; --after-hd:#12855a;
+    --fc-bg:#22303f; --fc-ink:#ffffff;
+    --d1:#eef4ff; --d1hd:#2b62b8;   /* Mon-Thurs / Mon-Fri */
+    --d2:#fff3e6; --d2hd:#c8781a;   /* Fri-Sat / Sat-Sun */
+    --d3:#f1ecfb; --d3hd:#6b46c1;   /* Sunday */
+    --on:#1a7f4b; --onbg:#d8f0e2;
+    --off:#b3341f; --offbg:#fbe1da;
+    --wait:#9a6a12; --waitbg:#fdefcf;
+    --ph:#fdeef4; --phhd:#b23a76;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;padding:24px;}
+  .sheet{max-width:940px;margin:0 auto;background:#fff;border:1px solid var(--line);
+    border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(20,30,50,.06);}
+  header{padding:22px 26px 18px;border-bottom:3px solid var(--fc-bg);}
+  h1{margin:0;font-size:26px;letter-spacing:-.3px;}
+  .sub{margin:4px 0 0;color:var(--muted);font-size:14px;}
+  .rev{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:#fff;
+    background:var(--fc-bg);padding:3px 10px;border-radius:999px;letter-spacing:.4px;}
+
+  .how{display:flex;gap:14px;flex-wrap:wrap;padding:16px 26px;background:#fafbfe;
+    border-bottom:1px solid var(--line);}
+  .step{flex:1;min-width:200px;display:flex;gap:10px;align-items:flex-start;}
+  .num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--fc-bg);color:#fff;
+    font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+  .step b{display:block;font-size:14px;}
+  .step span{font-size:12.5px;color:var(--muted);}
+
+  section{padding:20px 26px 8px;}
+  .band{display:flex;align-items:center;gap:10px;margin:0 0 12px;}
+  .tag{font-size:12px;font-weight:800;letter-spacing:.6px;color:#fff;padding:5px 12px;border-radius:8px;text-transform:uppercase;}
+  .tag.m{background:var(--morn-hd);}
+  .tag.a{background:var(--after-hd);}
+  .band h2{margin:0;font-size:17px;}
+  .band .note{margin-left:auto;font-size:12.5px;color:var(--muted);font-weight:600;}
+
+  .grids{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+  table{border-collapse:collapse;width:100%;font-size:15px;}
+  .wrap{flex:1;min-width:340px;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .wrap.ph{flex:none;width:220px;}
+  th,td{padding:9px 12px;text-align:center;border-bottom:1px solid #e7ebf1;}
+  thead th{font-size:12.5px;font-weight:800;letter-spacing:.3px;padding-top:11px;padding-bottom:11px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:nth-child(even) td{background:rgba(20,40,80,.028);}
+
+  /* FC column */
+  th.fc,td.fc{background:var(--fc-bg);color:var(--fc-ink);font-weight:800;font-size:16px;width:74px;
+    border-bottom:1px solid #33465c;}
+  tbody tr:nth-child(even) td.fc{background:#2b3a4b;}
+
+  /* day columns tint */
+  .c1{background:var(--d1);} thead .c1{background:var(--d1hd);color:#fff;}
+  .c2{background:var(--d2);} thead .c2{background:var(--d2hd);color:#fff;}
+  .c3{background:var(--d3);} thead .c3{background:var(--d3hd);color:#fff;}
+  tbody tr:nth-child(even) td.c1{background:#e3ecfb;}
+  tbody tr:nth-child(even) td.c2{background:#ffe9d4;}
+  tbody tr:nth-child(even) td.c3{background:#e9e0f8;}
+  td .u{font-size:11px;color:var(--muted);font-weight:600;}
+  td.dose{font-weight:700;}
+
+  /* status pills */
+  .pill{display:inline-block;min-width:66px;padding:3px 8px;border-radius:6px;font-weight:800;font-size:12.5px;letter-spacing:.3px;}
+  .on{background:var(--onbg);color:var(--on);}
+  .off{background:var(--offbg);color:var(--off);}
+  .wait{background:var(--waitbg);color:var(--wait);font-size:11.5px;}
+
+  /* pH table */
+  .ph thead th{background:var(--phhd);color:#fff;}
+  .ph td.k{font-weight:800;background:#fbe7f0;}
+
+  footer{padding:14px 26px 22px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);background:#fafbfe;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px;}
+  .legend span{display:flex;align-items:center;gap:6px;}
+  .sw{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid rgba(0,0,0,.08);}
+
+  @media print{
+    body{background:#fff;padding:0;}
+    .sheet{border:none;box-shadow:none;border-radius:0;max-width:100%;}
+    section{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <h1>SS23 Pool — Chlorine &amp; pH Dosing Guide</h1>
+    <p class="sub">Water test → find your FC reading → read the column for today. Salt Chlorinator = SC.</p>
+    <span class="rev">REV 2.0</span>
+  </header>
+
+  <div class="how">
+    <div class="step"><div class="num">1</div><div><b>Check the time</b><span>Morning 9am test, or after-class 5pm test — use the matching section.</span></div></div>
+    <div class="step"><div class="num">2</div><div><b>Find the FC row</b><span>Match your measured FC (dark left column).</span></div></div>
+    <div class="step"><div class="num">3</div><div><b>Read today's column</b><span>Follow the row across to the coloured column for today.</span></div></div>
+  </div>
+
+  <!-- MORNING -->
+  <section>
+    <div class="band">
+      <span class="tag m">Morning</span>
+      <h2>9am Water Test — Salt Chlorinator ON / OFF</h2>
+      <span class="note">Decision only · no chlorine dosing</span>
+    </div>
+    <div class="grids">
+      <div class="wrap">
+        <table>
+          <thead><tr><th class="fc">FC</th><th class="c1">Mon – Fri</th><th class="c2">Sat – Sun</th></tr></thead>
+          <tbody id="morn"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- AFTER CLASS -->
+  <section>
+    <div class="band">
+      <span class="tag a">After Class</span>
+      <h2>5pm Water Test — Chlorine Dose</h2>
+      <span class="note">Salt Chlorinator OFF for all after-class dosing</span>
+    </div>
+    <div class="grids">
+      <div class="wrap">
+        <table>
+          <thead><tr><th class="fc">FC</th><th class="c1">Mon – Thurs</th><th class="c2">Fri – Sat</th><th class="c3">Sunday</th></tr></thead>
+          <tbody id="after"></tbody>
+        </table>
+      </div>
+      <div class="wrap ph">
+        <table class="ph">
+          <thead><tr><th>pH Reading</th><th>pH Minus</th></tr></thead>
+          <tbody id="ph"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--onbg)"></i> SC ON</span>
+      <span><i class="sw" style="background:var(--offbg)"></i> SC OFF</span>
+      <span><i class="sw" style="background:var(--waitbg)"></i> SC ON after 4 hours</span>
+      <span><i class="sw" style="background:var(--d1)"></i> Mon–Thu/Fri</span>
+      <span><i class="sw" style="background:var(--d2)"></i> Fri/Sat–Sat/Sun</span>
+      <span><i class="sw" style="background:var(--d3)"></i> Sunday</span>
+    </div>
+    Source: SS23 tab (Rev 2.0). pH below 7.5 = no dosing. Chlorine grams/kg as measured. Confirm values against your master sheet before printing.
+  </footer>
+</div>
+
+<script>
+  const morn = [
+    ["0.0","ON","ON"],["0.2","ON","ON"],["0.4","ON","ON"],["0.6","ON","ON"],
+    ["0.8","ON","ON"],["1.0","ON","ON"],["1.2","ON","ON"],["1.4","ON","ON"],
+    ["1.6","ON","ON"],["1.8","ON","ON"],["2.0","ON","ON"],["2.2","ON","ON"],
+    ["2.4","OFF","ON"],["2.6","OFF","ON4"],["2.8","OFF","ON4"],["3.0","OFF","ON4"]
+  ];
+  const after = [
+    ["0.0","800g","900g","2.4kg"],["0.2","700g","900g","2.4kg"],["0.4","700g","900g","2.4kg"],
+    ["0.6","700g","900g","2.4kg"],["0.8","700g","900g","2.4kg"],["1.0","600g","900g","2.4kg"],
+    ["1.2","600g","800g","2.4kg"],["1.4","500g","800g","2.2kg"],["1.6","500g","800g","2.2kg"],
+    ["1.8","500g","800g","2.2kg"],["2.0","400g","500g","2.2kg"],["2.2","400g","500g","1.5kg"],
+    ["2.4","400g","500g","1.5kg"],["2.6","200g","400g","1.0kg"],["2.8","200g","400g","1.0kg"],
+    ["3.0","100g","400g","1.0kg"]
+  ];
+  const ph = [["7.5","0.5kg"],["7.8","1.0kg"],["8.2","1.5kg"]];
+
+  function pill(v){
+    if(v==="ON") return '<span class="pill on">SC ON</span>';
+    if(v==="OFF") return '<span class="pill off">SC OFF</span>';
+    if(v==="ON4") return '<span class="pill wait">ON after 4h</span>';
+    return v;
+  }
+  document.getElementById('morn').innerHTML = morn.map(r=>
+    `<tr><td class="fc">${r[0]}</td><td class="c1">${pill(r[1])}</td><td class="c2">${pill(r[2])}</td></tr>`).join('');
+  document.getElementById('after').innerHTML = after.map(r=>
+    `<tr><td class="fc">${r[0]}</td><td class="c1 dose">${r[1]}</td><td class="c2 dose">${r[2]}</td><td class="c3 dose">${r[3]}</td></tr>`).join('');
+  document.getElementById('ph').innerHTML = ph.map(r=>
+    `<tr><td class="k">${r[0]}</td><td class="dose">${r[1]}</td></tr>`).join('');
+</script>
+</body>
+</html>
