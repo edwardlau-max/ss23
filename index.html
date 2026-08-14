@@ -17,6 +17,10 @@
     --off:#b3341f; --offbg:#fbe1da;
     --wait:#9a6a12; --waitbg:#fdefcf;
     --ph:#fdeef4; --phhd:#b23a76;
+    --warn:#b23b17; --warnbg:#fdeee7;
+    --lv1bg:#e2f4e9; --lv1:#1a7f4b;
+    --lv2bg:#fdefcf; --lv2:#9a6a12;
+    --lv3bg:#fbe1da; --lv3:#b3341f;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--ink);
@@ -43,6 +47,7 @@
   .tag{font-size:12px;font-weight:800;letter-spacing:.6px;color:#fff;padding:5px 12px;border-radius:8px;text-transform:uppercase;}
   .tag.m{background:var(--morn-hd);}
   .tag.a{background:var(--after-hd);}
+  .tag.w{background:var(--warn);}
   .band h2{margin:0;font-size:17px;}
   .band .note{margin-left:auto;font-size:12.5px;color:var(--muted);font-weight:600;}
 
@@ -80,11 +85,50 @@
   .ph thead th{background:var(--phhd);color:#fff;}
   .ph td.k{font-weight:800;background:#fbe7f0;}
 
+  /* poo leaking procedure */
+  .proc{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+  .proc .steps{flex:1;min-width:320px;background:var(--warnbg);border:1px solid #f2d3c6;border-radius:10px;padding:6px 6px 6px 4px;}
+  .proc ol{margin:8px 14px 8px 34px;padding:0;}
+  .proc ol li{margin:0 0 7px;font-size:14px;line-height:1.4;}
+  .proc ol li b{color:var(--warn);}
+  .lv{flex:none;width:300px;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .lv table{font-size:13.5px;}
+  .lv thead th{background:var(--fc-bg);color:#fff;}
+  .lv td{text-align:left;vertical-align:top;}
+  .lv td.tag1,.lv td.tag2,.lv td.tag3{text-align:center;font-weight:800;white-space:nowrap;width:70px;}
+  .lv td.tag1{background:var(--lv1bg);color:var(--lv1);}
+  .lv td.tag2{background:var(--lv2bg);color:var(--lv2);}
+  .lv td.tag3{background:var(--lv3bg);color:var(--lv3);}
+
   footer{padding:14px 26px 22px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);background:#fafbfe;}
   .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px;}
   .legend span{display:flex;align-items:center;gap:6px;}
   .sw{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid rgba(0,0,0,.08);}
 
+  @media (max-width:640px){
+    body{padding:10px;}
+    .sheet{border-radius:10px;}
+    header{padding:16px 16px 13px;}
+    h1{font-size:20px;}
+    .sub{font-size:12.5px;}
+    .rev{margin-top:6px;}
+    .how{padding:12px 16px;gap:10px;}
+    .step{min-width:100%;}
+    section{padding:16px 12px 4px;}
+    .band{flex-wrap:wrap;}
+    .band h2{font-size:15px;}
+    .band .note{margin-left:0;flex-basis:100%;}
+    .grids,.proc{gap:14px;}
+    .wrap,.wrap.ph,.proc .steps,.lv{min-width:0;width:100%;flex:1 1 100%;}
+    .proc ol{margin:8px 12px 8px 30px;}
+    th,td{padding:8px 6px;font-size:13.5px;}
+    thead th{font-size:11.5px;}
+    th.fc,td.fc{width:46px;font-size:14px;}
+    td.dose{font-size:13.5px;}
+    .pill{min-width:0;font-size:11px;padding:3px 6px;letter-spacing:0;}
+    footer{padding:12px 16px 18px;}
+    .legend{gap:10px;font-size:11px;}
+  }
   @media print{
     body{background:#fff;padding:0;}
     .sheet{border:none;box-shadow:none;border-radius:0;max-width:100%;}
@@ -146,11 +190,41 @@
     </div>
   </section>
 
+  <!-- POO LEAKING PROCEDURE -->
+  <section>
+    <div class="band">
+      <span class="tag w">Incident</span>
+      <h2>Poo Leaking Procedure</h2>
+      <span class="note">Evacuate the pool for Level 3 only</span>
+    </div>
+    <div class="proc">
+      <div class="steps">
+        <ol>
+          <li>Identify the critical level (see table).</li>
+          <li><b>Level 1 or 2:</b> clear the debris directly and isolate from pool.</li>
+          <li><b>Level 3 only:</b> evacuate the pool.</li>
+          <li>Clear the debris with vacuum and net ASAP.</li>
+          <li>Dose <b>100g CL</b> after clearing all debris.</li>
+          <li>Cancel class for 30 mins after dosing for pool buffer, then start class after that.</li>
+        </ol>
+      </div>
+      <div class="lv">
+        <table>
+          <thead><tr><th>Level</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr><td class="tag1">Level 1</td><td>Leaking on the high wall / big mat / pool deck (isolated from pool)</td></tr>
+            <tr><td class="tag2">Level 2</td><td>Solid poo which can be cleared immediately</td></tr>
+            <tr><td class="tag3">Level 3</td><td>Poo spread within a pool / more than a pool (fibre type)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="legend">
       <span><i class="sw" style="background:var(--onbg)"></i> SC ON</span>
       <span><i class="sw" style="background:var(--offbg)"></i> SC OFF</span>
-      <span><i class="sw" style="background:var(--waitbg)"></i> SC ON after 4 hours</span>
       <span><i class="sw" style="background:var(--d1)"></i> Mon–Thu/Fri</span>
       <span><i class="sw" style="background:var(--d2)"></i> Fri/Sat–Sat/Sun</span>
       <span><i class="sw" style="background:var(--d3)"></i> Sunday</span>
@@ -161,10 +235,10 @@
 
 <script>
   const morn = [
-    ["0.0","ON","ON"],["0.2","ON","ON"],["0.4","ON","ON"],["0.6","ON","ON"],
-    ["0.8","ON","ON"],["1.0","ON","ON"],["1.2","ON","ON"],["1.4","ON","ON"],
-    ["1.6","ON","ON"],["1.8","ON","ON"],["2.0","ON","ON"],["2.2","ON","ON"],
-    ["2.4","OFF","ON"],["2.6","OFF","ON4"],["2.8","OFF","ON4"],["3.0","OFF","ON4"]
+    ["0.0","OFF","OFF"],["0.2","OFF","OFF"],["0.4","OFF","OFF"],["0.6","OFF","OFF"],
+    ["0.8","OFF","OFF"],["1.0","OFF","OFF"],["1.2","OFF","OFF"],["1.4","OFF","OFF"],
+    ["1.6","OFF","OFF"],["1.8","OFF","OFF"],["2.0","OFF","OFF"],["2.2","OFF","OFF"],
+    ["2.4","OFF","OFF"],["2.6","OFF","OFF"],["2.8","OFF","OFF"],["3.0","OFF","OFF"]
   ];
   const after = [
     ["0.0","800g","900g","2.4kg"],["0.2","700g","900g","2.4kg"],["0.4","700g","900g","2.4kg"],
