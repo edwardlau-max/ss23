@@ -7,15 +7,11 @@
 <style>
   :root{
     --ink:#1a2230; --muted:#5b6675; --line:#d3d9e2; --bg:#f5f7fa;
-    --morn:#e8f1fd; --morn-hd:#1d6fd0;
-    --after:#eaf7f0; --after-hd:#12855a;
     --fc-bg:#22303f; --fc-ink:#ffffff;
-    --d1:#eef4ff; --d1hd:#2b62b8;   /* Mon-Thurs / Mon-Fri */
-    --d2:#fff3e6; --d2hd:#c8781a;   /* Fri-Sat / Sat-Sun */
-    --d3:#f1ecfb; --d3hd:#6b46c1;   /* Sunday */
-    --on:#1a7f4b; --onbg:#d8f0e2;
-    --off:#b3341f; --offbg:#fbe1da;
-    --wait:#9a6a12; --waitbg:#fdefcf;
+    --d1:#eef4ff; --d1hd:#2b62b8;   /* Mon-Thurs (blue) */
+    --d2:#fff3e6; --d2hd:#c8781a;   /* Fri-Sat (orange) */
+    --d3:#f1ecfb; --d3hd:#6b46c1;   /* Sunday (purple) */
+    --offbg:#fbe1da; --off:#b3341f;  /* SC OFF */
     --ph:#fdeef4; --phhd:#b23a76;
     --warn:#b23b17; --warnbg:#fdeee7;
     --lv1bg:#e2f4e9; --lv1:#1a7f4b;
@@ -45,8 +41,8 @@
   section{padding:20px 26px 8px;}
   .band{display:flex;align-items:center;gap:10px;margin:0 0 12px;}
   .tag{font-size:12px;font-weight:800;letter-spacing:.6px;color:#fff;padding:5px 12px;border-radius:8px;text-transform:uppercase;}
-  .tag.m{background:var(--morn-hd);}
-  .tag.a{background:var(--after-hd);}
+  .tag.a{background:#12855a;}
+  .tag.m{background:var(--d1hd);}
   .tag.w{background:var(--warn);}
   .band h2{margin:0;font-size:17px;}
   .band .note{margin-left:auto;font-size:12.5px;color:var(--muted);font-weight:600;}
@@ -55,37 +51,29 @@
   table{border-collapse:collapse;width:100%;font-size:15px;}
   .wrap{flex:1;min-width:340px;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
   .wrap.ph{flex:none;width:220px;}
+  .wrap.narrow{flex:none;width:320px;}
   th,td{padding:9px 12px;text-align:center;border-bottom:1px solid #e7ebf1;}
   thead th{font-size:12.5px;font-weight:800;letter-spacing:.3px;padding-top:11px;padding-bottom:11px;}
   tbody tr:last-child td{border-bottom:none;}
-  tbody tr:nth-child(even) td{background:rgba(20,40,80,.028);}
 
-  /* FC column */
   th.fc,td.fc{background:var(--fc-bg);color:var(--fc-ink);font-weight:800;font-size:16px;width:74px;
     border-bottom:1px solid #33465c;}
   tbody tr:nth-child(even) td.fc{background:#2b3a4b;}
 
-  /* day columns tint */
   .c1{background:var(--d1);} thead .c1{background:var(--d1hd);color:#fff;}
   .c2{background:var(--d2);} thead .c2{background:var(--d2hd);color:#fff;}
   .c3{background:var(--d3);} thead .c3{background:var(--d3hd);color:#fff;}
   tbody tr:nth-child(even) td.c1{background:#e3ecfb;}
   tbody tr:nth-child(even) td.c2{background:#ffe9d4;}
   tbody tr:nth-child(even) td.c3{background:#e9e0f8;}
-  td .u{font-size:11px;color:var(--muted);font-weight:600;}
-  td.dose{font-weight:700;}
+  td.dose{font-weight:800;font-size:15.5px;}
 
-  /* status pills */
-  .pill{display:inline-block;min-width:66px;padding:3px 8px;border-radius:6px;font-weight:800;font-size:12.5px;letter-spacing:.3px;}
-  .on{background:var(--onbg);color:var(--on);}
+  .pill{display:inline-block;min-width:70px;padding:3px 9px;border-radius:6px;font-weight:800;font-size:12.5px;letter-spacing:.2px;}
   .off{background:var(--offbg);color:var(--off);}
-  .wait{background:var(--waitbg);color:var(--wait);font-size:11.5px;}
 
-  /* pH table */
   .ph thead th{background:var(--phhd);color:#fff;}
   .ph td.k{font-weight:800;background:#fbe7f0;}
 
-  /* poo leaking procedure */
   .proc{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
   .proc .steps{flex:1;min-width:320px;background:var(--warnbg);border:1px solid #f2d3c6;border-radius:10px;padding:6px 6px 6px 4px;}
   .proc ol{margin:8px 14px 8px 34px;padding:0;}
@@ -119,28 +107,24 @@
     .band h2{font-size:15px;}
     .band .note{margin-left:0;flex-basis:100%;}
     .grids,.proc{gap:14px;}
-    .wrap,.wrap.ph,.proc .steps,.lv{min-width:0;width:100%;flex:1 1 100%;}
-    .proc ol{margin:8px 12px 8px 30px;}
+    .wrap,.wrap.ph,.wrap.narrow,.proc .steps,.lv{min-width:0;width:100%;flex:1 1 100%;}
     th,td{padding:8px 6px;font-size:13.5px;}
     thead th{font-size:11.5px;}
     th.fc,td.fc{width:46px;font-size:14px;}
     td.dose{font-size:13.5px;}
     .pill{min-width:0;font-size:11px;padding:3px 6px;letter-spacing:0;}
+    .proc ol{margin:8px 12px 8px 30px;}
     footer{padding:12px 16px 18px;}
     .legend{gap:10px;font-size:11px;}
   }
-  @media print{
-    body{background:#fff;padding:0;}
-    .sheet{border:none;box-shadow:none;border-radius:0;max-width:100%;}
-    section{page-break-inside:avoid;}
-  }
+  @media print{ body{background:#fff;padding:0;} .sheet{border:none;box-shadow:none;border-radius:0;max-width:100%;} section{page-break-inside:avoid;} }
 </style>
 </head>
 <body>
 <div class="sheet">
   <header>
-    <h1>SS23 Pool — Chlorine &amp; pH Dosing Guide</h1>
-    <p class="sub">Water test → find your FC reading → read the column for today. Salt Chlorinator = SC.</p>
+    <h1>SS23 — Chlorine &amp; pH Dosing Guide</h1>
+    <p class="sub">Water test &#8594; find your FC reading &#8594; read the column for today. Water sample collected at Pool B. SC = Salt Chlorinator.</p>
     <span class="rev">REV 2.1</span>
   </header>
 
@@ -150,29 +134,12 @@
     <div class="step"><div class="num">3</div><div><b>Read today's column</b><span>Follow the row across to the coloured column for today.</span></div></div>
   </div>
 
-  <!-- MORNING -->
-  <section>
-    <div class="band">
-      <span class="tag m">Morning</span>
-      <h2>9am Water Test — Salt Chlorinator ON / OFF</h2>
-      <span class="note">Decision only · no chlorine dosing</span>
-    </div>
-    <div class="grids">
-      <div class="wrap">
-        <table>
-          <thead><tr><th class="fc">FC</th><th class="c1">Mon – Fri</th><th class="c2">Sat – Sun</th></tr></thead>
-          <tbody id="morn"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
   <!-- AFTER CLASS -->
   <section>
     <div class="band">
       <span class="tag a">After Class</span>
       <h2>5pm Water Test — Chlorine Dose</h2>
-      <span class="note">Sample at Pool B · Salt Chlorinator OFF for all after-class dosing</span>
+      <span class="note">Sample at Pool B · all after-class dosing = Salt Chlorinator OFF</span>
     </div>
     <div class="grids">
       <div class="wrap">
@@ -185,6 +152,23 @@
         <table class="ph">
           <thead><tr><th>pH Reading</th><th>pH Minus</th></tr></thead>
           <tbody id="ph"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- MORNING -->
+  <section>
+    <div class="band">
+      <span class="tag m">Morning</span>
+      <h2>Morning 9am Water Test — Salt Chlorinator</h2>
+      <span class="note">Decision only, no CL</span>
+    </div>
+    <div class="grids">
+      <div class="wrap narrow">
+        <table>
+          <thead><tr><th class="fc">FC</th><th class="c1">Mon – Fri</th><th class="c2">Sat – Sun</th></tr></thead>
+          <tbody id="morn"></tbody>
         </table>
       </div>
     </div>
@@ -223,43 +207,43 @@
 
   <footer>
     <div class="legend">
-      <span><i class="sw" style="background:var(--onbg)"></i> SC ON</span>
       <span><i class="sw" style="background:var(--offbg)"></i> SC OFF</span>
-      <span><i class="sw" style="background:var(--d1)"></i> Mon–Thu/Fri</span>
-      <span><i class="sw" style="background:var(--d2)"></i> Fri/Sat–Sat/Sun</span>
+      <span><i class="sw" style="background:var(--d1)"></i> Mon–Thurs</span>
+      <span><i class="sw" style="background:var(--d2)"></i> Fri–Sat</span>
       <span><i class="sw" style="background:var(--d3)"></i> Sunday</span>
     </div>
-    Source: SS23 tab (Rev 2.1). After-class water sample collected at Pool B. pH below 7.5 = no dosing. Chlorine grams/kg as measured. Confirm values against your master sheet before printing.
+    Source: SS23 (Rev 2.1), master dosing sheet. Water sample collected at Pool B. After-class CL dosing = Salt Chlorinator OFF; morning is SC OFF at all readings. Confirm values against your master sheet before printing.
   </footer>
 </div>
 
 <script>
-  const morn = [
-    ["0.0","OFF","OFF"],["0.2","OFF","OFF"],["0.4","OFF","OFF"],["0.6","OFF","OFF"],
-    ["0.8","OFF","OFF"],["1.0","OFF","OFF"],["1.2","OFF","OFF"],["1.4","OFF","OFF"],
-    ["1.6","OFF","OFF"],["1.8","OFF","OFF"],["2.0","OFF","OFF"],["2.2","OFF","OFF"],
-    ["2.4","OFF","OFF"],["2.6","OFF","OFF"],["2.8","OFF","OFF"],["3.0","OFF","OFF"]
-  ];
   const after = [
-    ["0.0","800g","900g","2.4kg"],["0.2","700g","900g","2.4kg"],["0.4","700g","900g","2.4kg"],
+    ["0","800g","900g","2.4kg"],["0.2","700g","900g","2.4kg"],["0.4","700g","900g","2.4kg"],
     ["0.6","600g","900g","2.4kg"],["0.8","600g","900g","2.4kg"],["1.0","500g","800g","2.2kg"],
     ["1.2","500g","800g","2.2kg"],["1.4","500g","800g","2.2kg"],["1.6","500g","800g","2.2kg"],
     ["1.8","400g","700g","2.2kg"],["2.0","400g","500g","1.5kg"],["2.2","400g","500g","1.5kg"],
     ["2.4","300g","400g","1.5kg"],["2.6","200g","300g","1.0kg"],["2.8","100g","300g","1.0kg"],
     ["3.0","100g","300g","800g"]
   ];
-  const ph = [["7.5","0.5kg"],["7.8","1.0kg"],["8.2","1.5kg"]];
+  const morn = [
+    ["0","SC OFF","SC OFF"],["0.2","SC OFF","SC OFF"],["0.4","SC OFF","SC OFF"],
+    ["0.6","SC OFF","SC OFF"],["0.8","SC OFF","SC OFF"],["1.0","SC OFF","SC OFF"],
+    ["1.2","SC OFF","SC OFF"],["1.4","SC OFF","SC OFF"],["1.6","SC OFF","SC OFF"],
+    ["1.8","SC OFF","SC OFF"],["2.0","SC OFF","SC OFF"],["2.2","SC OFF","SC OFF"],
+    ["2.4","SC OFF","SC OFF"],["2.6","SC OFF","SC OFF"],["2.8","SC OFF","SC OFF"],
+    ["3.0","SC OFF","SC OFF"]
+  ];
+  const ph = [["7.5","800g"],["7.8","1.5kg"],["8.2","2.5kg"]];
 
-  function pill(v){
-    if(v==="ON") return '<span class="pill on">SC ON</span>';
-    if(v==="OFF") return '<span class="pill off">SC OFF</span>';
-    if(v==="ON4") return '<span class="pill wait">ON after 4h</span>';
+  function fmt(v){
+    if(/^\d.*(kg|g)$/.test(v)) return `<span class="dose">${v}</span>`;
+    if(/off/i.test(v)) return '<span class="pill off">SC OFF</span>';
     return v;
   }
-  document.getElementById('morn').innerHTML = morn.map(r=>
-    `<tr><td class="fc">${r[0]}</td><td class="c1">${pill(r[1])}</td><td class="c2">${pill(r[2])}</td></tr>`).join('');
   document.getElementById('after').innerHTML = after.map(r=>
-    `<tr><td class="fc">${r[0]}</td><td class="c1 dose">${r[1]}</td><td class="c2 dose">${r[2]}</td><td class="c3 dose">${r[3]}</td></tr>`).join('');
+    `<tr><td class="fc">${r[0]}</td><td class="c1">${fmt(r[1])}</td><td class="c2">${fmt(r[2])}</td><td class="c3">${fmt(r[3])}</td></tr>`).join('');
+  document.getElementById('morn').innerHTML = morn.map(r=>
+    `<tr><td class="fc">${r[0]}</td><td class="c1">${fmt(r[1])}</td><td class="c2">${fmt(r[2])}</td></tr>`).join('');
   document.getElementById('ph').innerHTML = ph.map(r=>
     `<tr><td class="k">${r[0]}</td><td class="dose">${r[1]}</td></tr>`).join('');
 </script>
