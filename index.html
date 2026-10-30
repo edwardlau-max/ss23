@@ -70,6 +70,7 @@
 
   .pill{display:inline-block;min-width:70px;padding:3px 9px;border-radius:6px;font-weight:800;font-size:12.5px;letter-spacing:.2px;}
   .off{background:var(--offbg);color:var(--off);}
+  .none{background:#eceff3;color:#5b6675;}
 
   .ph thead th{background:var(--phhd);color:#fff;}
   .ph td.k{font-weight:800;background:#fbe7f0;}
@@ -218,12 +219,12 @@
 
 <script>
   const after = [
-    ["0","800g","900g","2.4kg"],["0.2","700g","900g","2.4kg"],["0.4","700g","900g","2.4kg"],
-    ["0.6","600g","900g","2.4kg"],["0.8","600g","900g","2.4kg"],["1.0","500g","800g","2.2kg"],
-    ["1.2","500g","800g","2.2kg"],["1.4","500g","800g","2.2kg"],["1.6","500g","800g","2.2kg"],
-    ["1.8","400g","700g","2.2kg"],["2.0","400g","500g","1.5kg"],["2.2","400g","500g","1.5kg"],
-    ["2.4","300g","400g","1.5kg"],["2.6","200g","300g","1.0kg"],["2.8","100g","300g","1.0kg"],
-    ["3.0","100g","300g","800g"]
+    ["0","800g","900g","2.4kg"],["0.2","600g","900g","2.4kg"],["0.4","600g","900g","2.4kg"],
+    ["0.6","600g","900g","2.4kg"],["0.8","500g","900g","2.4kg"],["1.0","500g","800g","2.2kg"],
+    ["1.2","500g","800g","2.2kg"],["1.4","500g","800g","2.2kg"],["1.6","400g","800g","2.2kg"],
+    ["1.8","300g","700g","2.2kg"],["2.0","200g","500g","1.5kg"],["2.2","200g","500g","1.5kg"],
+    ["2.4","200g","400g","1.5kg"],["2.6","100g","300g","1.0kg"],["2.8","100g","300g","1.0kg"],
+    ["3.0","No dosing","300g","800g"]
   ];
   const morn = [
     ["0","SC OFF","SC OFF"],["0.2","SC OFF","SC OFF"],["0.4","SC OFF","SC OFF"],
@@ -237,6 +238,7 @@
 
   function fmt(v){
     if(/^\d.*(kg|g)$/.test(v)) return `<span class="dose">${v}</span>`;
+    if(/no dos/i.test(v)) return '<span class="pill none">No dosing</span>';
     if(/off/i.test(v)) return '<span class="pill off">SC OFF</span>';
     return v;
   }
